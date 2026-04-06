@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ramadan & Eid al-Fitr</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --gold-dim: #8a6e30;
+      --deep: #0D1117;
+      --surface: #131A24;
+      --surface2: #1A2435;
+      --text: #E8E0D0;
+      --text-muted: #9A8F7F;
+      --accent: #3A6B8C;
+      --accent-light: #4F8FB5;
+      --cream: #F5EDD6;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      background-color: var(--deep);
+      color: var(--text);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 2rem;
+      position: relative;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.13) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(58,107,140,0.10) 0%, transparent 60%),
+        var(--deep);
+      overflow: hidden;
+    }
+
+    /* Crescent moon */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 4rem;
+      right: 8vw;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      box-shadow: -22px 0 0 8px var(--gold);
+      opacity: 0.22;
+      animation: floatMoon 8s ease-in-out infinite;
+    }
+
+    @keyframes floatMoon {
+      0%, 100% { transform: translateY(0px) rotate(-10deg); }
+      50%       { transform: translateY(-18px) rotate(-10deg); }
+    }
+
+    /* Stars */
+    .stars {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .star {
+      position: absolute;
+      background: var(--gold-light);
+      border-radius: 50%;
+      animation: twinkle var(--d, 3s) ease-in-out infinite;
+      opacity: 0;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50%       { opacity: var(--op, 0.7); transform: scale(1); }
+    }
+
+    .ornament {
+      font-size: 1.5rem;
+      letter-spacing: 0.5em;
+      color: var(--gold);
+      opacity: 0.6;
+      margin-bottom: 1.2rem;
+      animation: fadeUp 1s ease both;
+    }
+
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: 0.06em;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dim) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeUp 1s 0.2s ease both;
+    }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      color: var(--text-muted);
+      margin-top: 1rem;
+      animation: fadeUp 1s 0.4s ease both;
+    }
+
+    .divider-line {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 2rem auto;
+      width: min(420px, 80%);
+      animation: fadeUp 1s 0.6s ease both;
+    }
+    .divider-line span { flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+    .divider-line i { color: var(--gold); font-size: 1.1rem; }
+
+    .hero-intro {
+      max-width: 600px;
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      animation: fadeUp 1s 0.8s ease both;
+    }
+
+    .scroll-cue {
+      margin-top: 3.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--gold-dim);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      animation: fadeUp 1s 1s ease both;
+    }
+    .scroll-cue::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gold-dim), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50%       { opacity: 1;   transform: scaleY(1.2); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,17,23,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      display: flex;
+      justify-content: center;
+      gap: clamp(1rem, 4vw, 3rem);
+      padding: 1rem 2rem;
+    }
+    nav a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    nav a:hover { color: var(--gold); }
+
+    /* ── LAYOUT ── */
+    main { max-width: 980px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* ── SECTION HEADERS ── */
+    .section-header {
+      text-align: center;
+      padding: 5rem 0 3rem;
+    }
+    .section-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1.2;
+    }
+    .section-rule {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(to right, var(--gold-dim), var(--gold), var(--gold-dim));
+      margin: 1.2rem auto 0;
+    }
+
+    /* ── INTRO BLOCK ── */
+    .intro-block {
+      background: var(--surface);
+      border: 1px solid rgba(201,168,76,0.12);
+      border-radius: 2px;
+      padding: 2.5rem 3rem;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    .intro-block::before {
+      content: '"';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 8rem;
+      line-height: 1;
+      color: var(--gold);
+      opacity: 0.08;
+      position: absolute;
+      top: -0.5rem;
+      left: 1.5rem;
+    }
+    .intro-block p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      color: var(--text);
+      font-style: italic;
+    }
+
+    /* ── CARD GRID ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid rgba(201,168,76,0.10);
+      border-top: 2px solid var(--gold);
+      padding: 2rem 1.8rem;
+      border-radius: 2px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    }
+    .card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    .card h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+    .card p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ── PILLARS ── */
+    .pillars {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      margin-bottom: 4rem;
+    }
+    .pillar {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+      background: var(--surface);
+      padding: 1.8rem 2rem;
+      border-left: 3px solid var(--gold-dim);
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .pillar:hover { border-color: var(--gold); background: var(--surface2); }
+    .pillar-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--gold);
+      opacity: 0.4;
+      font-weight: 300;
+      line-height: 1;
+      padding-top: 0.2rem;
+    }
+    .pillar-body h4 {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      color: var(--cream);
+      margin-bottom: 0.4rem;
+    }
+    .pillar-body p { font-size: 0.92rem; color: var(--text-muted); }
+
+    /* ── TIMELINE ── */
+    .timeline {
+      position: relative;
+      margin-bottom: 4rem;
+      padding-left: 2.5rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0.5rem;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--gold-dim), transparent);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      top: 0.4rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
+    }
+    .timeline-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+    .timeline-item h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      color: var(--cream);
+      margin-bottom: 0.3rem;
+    }
+    .timeline-item p { font-size: 0.92rem; color: var(--text-muted); }
+
+    /* ── HIGHLIGHT BAND ── */
+    .highlight-band {
+      background: linear-gradient(135deg, var(--surface2) 0%, rgba(58,107,140,0.15) 100%);
+      border: 1px solid rgba(79,143,181,0.2);
+      border-radius: 2px;
+      padding: 3rem;
+      margin-bottom: 4rem;
+      text-align: center;
+    }
+    .highlight-band h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.9rem;
+      font-style: italic;
+      color: var(--cream);
+      margin-bottom: 1rem;
+    }
+    .highlight-band p { color: var(--text-muted); max-width: 580px; margin: 0 auto; }
+
+    /* ── EID SECTION WRAPPER ── */
+    #eid { border-top: 1px solid rgba(201,168,76,0.1); }
+
+    /* ── TWO-COL ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid rgba(201,168,76,0.08);
+      padding: 2rem;
+      border-radius: 2px;
+    }
+    .panel h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      padding-bottom: 0.7rem;
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+    .panel ul { list-style: none; }
+    .panel li {
+      font-size: 0.93rem;
+      color: var(--text-muted);
+      padding: 0.45rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+    }
+    .panel li::before { content: '◆'; color: var(--gold); font-size: 0.45rem; margin-top: 0.5rem; flex-shrink: 0; }
+
+    /* ── TRADITIONS MOSAIC ── */
+    .mosaic {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 1rem;
+      margin-bottom: 4rem;
+    }
+    @media (max-width: 600px) { .mosaic { grid-template-columns: 1fr; } }
+    .mosaic-item {
+      background: var(--surface);
+      border: 1px solid rgba(201,168,76,0.08);
+      padding: 1.8rem 1.5rem;
+      border-radius: 2px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    .mosaic-item:hover { transform: scale(1.02); }
+    .mosaic-item:first-child {
+      grid-column: 1 / 3;
+      background: linear-gradient(135deg, var(--surface2), rgba(201,168,76,0.06));
+      border-color: rgba(201,168,76,0.2);
+    }
+    .mosaic-emoji { font-size: 2rem; margin-bottom: 0.7rem; }
+    .mosaic-item h4 {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+    }
+    .mosaic-item p { font-size: 0.88rem; color: var(--text-muted); }
+
+    /* ── CLOSING ── */
+    .closing {
+      text-align: center;
+      padding: 5rem 2rem 6rem;
+      border-top: 1px solid rgba(201,168,76,0.1);
+    }
+    .closing-arabic {
+      font-size: 2.5rem;
+      color: var(--gold);
+      opacity: 0.5;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+    .closing h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: var(--cream);
+      font-weight: 300;
+      margin-bottom: 0.8rem;
+    }
+    .closing p { font-size: 0.9rem; color: var(--text-muted); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid rgba(201,168,76,0.1);
+      text-align: center;
+      padding: 1.8rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── FADE-IN ON SCROLL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="stars" id="stars"></div>
+
+  <p class="ornament">✦ &nbsp; ✦ &nbsp; ✦</p>
+  <h1 class="hero-title">Ramadan &amp;<br/>Eid al-Fitr</h1>
+  <p class="hero-sub">The most holy month in Islam &amp; the end of Ramadan</p>
+
+  <div class="divider-line">
+    <span></span>
+    <i>☽</i>
+    <span></span>
+  </div>
+
+  <p class="hero-intro">
+    Lets take a look at Ramadan and Eid al-Fitr
+  </p>
+
+  <div class="scroll-cue">Explore</div>
+</section>
+
+<!-- NAV -->
+<nav>
+  <a href="#ramadan">Ramadan</a>
+  <a href="#pillars">The Five Pillars</a>
+  <a href="#eid">Eid al-Fitr</a>
+  <a href="#traditions">Traditions</a>
+</nav>
+
+<main>
+
+  <!-- ══════════════════ RAMADAN ══════════════════ -->
+  <section id="ramadan">
+    <div class="section-header reveal">
+      <p class="section-tag">The Holy Month</p>
+      <h2 class="section-title">Ramadan</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="intro-block reveal">
+      <p>
+        Ramadan is the ninth month of the Islamic lunar calendar and the holiest period
+        of the year for Muslims worldwide. It commemorates the first revelation
+        of the Quran to the Prophet Muhammad ﷺ and is marked by fasting, prayer
+        and community. Ramadan is the month of fasting where the fourth pillar of Islam
+        is practiced. For the whole month, Muslims do not eat food or drink water from 
+        sunrise to sunset.
+      </p>
+    </div>
+
+    <div class="card-grid reveal">
+      <div class="card">
+        <div class="card-icon">☽</div>
+        <h3>When It Occurs</h3>
+        <p>Ramadan begins and ends with the sighting of the crescent moon. Because the Islamic calendar is lunar, its dates shift approximately 10–11 days earlier each year relative to the Gregorian calendar.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📖</div>
+        <h3>Laylat al-Qadr</h3>
+        <p>The "Night of Power" — An important day during the last 10 days of Ramadan, although the exact date is unknown, Laylat al-Qadr is the night in Islam.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌍</div>
+        <h3>Global Observance</h3>
+        <p>From Indonesia to Morocco, Turkey to the United States, Ramadan unites brings together Muslims gobally for this special time.</p>
+      </div>
+    </div>
+
+    <div class="section-header reveal" style="padding-top:2rem;">
+      <p class="section-tag">Daily Structure</p>
+      <h2 class="section-title" style="font-size:clamp(1.5rem,3.5vw,2.4rem);">The Rhythm of the Day</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="timeline reveal">
+      <div class="timeline-item">
+        <p class="timeline-label">Pre-Dawn</p>
+        <h4>Suhoor</h4>
+        <p>Before dawn, Muslims wake up to eat a meal before they begin their fast. Suhoor has many cultral differences, but is intended to be a small meal early in the day.</p>
+      </div>
+      <div class="timeline-item">
+        <p class="timeline-label">Dawn to Sunset</p>
+        <h4>The Fast (Sawm)</h4>
+        <p>Muslims abstain from food, drink, smoking, and sexual relations from dawn until sunset. Further, during the entire month of Ramadan Muslims attempt to avoid gossip, 
+          anger, and idle behavior as a practice in Moral disipline. Muslims are meant to go above and beyond their normal moral disipline and better themselves for next year</p>
+      </div>
+      <div class="timeline-item">
+        <p class="timeline-label">At Sunset</p>
+        <h4>Iftar</h4>
+        <p>The fast is traditionally broken with dates and water, following the Sunnah of the Prophet ﷺ. Afterwards, families and communities come together for large meals late into the night</p>
+      </div>
+      <div class="timeline-item">
+        <p class="timeline-label">Night</p>
+        <h4>Tarawih Prayers</h4>
+        <p>Special nightly prayers performed during Ramadan. Over the month, the Quran is recited in full.</p>
+      </div>
+    </div>
+
+    <div class="highlight-band reveal">
+      <h3>"Whoever fasts Ramadan out of faith and hoping for reward, his previous sins will be forgiven."</h3>
+      <p>— Hadith reported by al-Bukhari and Muslim, attributed to the Prophet Muhammad ﷺ</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════ FIVE PILLARS ══════════════════ -->
+  <section id="pillars">
+    <div class="section-header reveal">
+      <p class="section-tag">Context</p>
+      <h2 class="section-title">Ramadan &amp; the Five Pillars of Islam</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <p class="reveal" style="text-align:center; color:var(--text-muted); max-width:600px; margin:0 auto 2.5rem; font-size:0.97rem;">
+      Ramadan directly contains four of Islam's Five Pillars — the core obligations that
+      form the foundation of Muslim life and practice. 
+    </p>
+
+    <div class="pillars reveal">
+      <div class="pillar">
+        <div class="pillar-num">I</div>
+        <div class="pillar-body">
+          <h4>Shahada — Declaration of Faith</h4>
+          <p>The Shahada is the most important aspect of Islam. It goes as follows: "There is no god but Allah, and Muhammad is His messenger." 
+            The Shahada is recited during every prayer and with the special focus of prayer during Ramadan, it is repeated quite often. Further,
+            the purpose of Ramadan is to strengthen the connection between Allah and the follower in rememberance of god which is the point of the Shahada
+          </p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">II</div>
+        <div class="pillar-body">
+          <h4>Salah — Prayer</h4>
+          <p>During Ramadan, Muslims are encouraged to go beyond the five daily prayers. First is of course the Tarawih. The nightly prayer is heavily 
+            encouraged for all followers to participate in alongside the community. Further prayers late into the night are recommended along with prayers along the day.
+          </p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">III</div>
+        <div class="pillar-body">
+          <h4>Zakat — Charitable Giving</h4>
+          <p>Charity is amplified during Ramadan. Muslims are told to give more during Ramadan. It is more rewarded to give during Ramadan and so many give more than the 2.5% 
+            that is expected of them</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">IV</div>
+        <div class="pillar-body">
+          <h4>Sawm — Fasting</h4>
+          <p>Fasting is evident in Ramadan. This is the main time most people fast and while other times it is encouraged, it is mandatory during Ramadan for all who are able.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">V</div>
+        <div class="pillar-body">
+          <h4>Hajj — Pilgrimage</h4>
+          <p>The last pillar is the Hajj. It is the only one not directly tied to Ramadan but it is still important to remember</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ EID AL-FITR ══════════════════ -->
+  <section id="eid">
+    <div class="section-header reveal">
+      <p class="section-tag">The Festival of Breaking Fast</p>
+      <h2 class="section-title">Eid al-Fitr</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="intro-block reveal">
+      <p>
+        Eid al-Fitr ("the festival of breaking fast") marks the  end of Ramadan.
+        It is a day of gratitude to Allah, communal joy, and generous celebration — one of
+        the two holiday in the Islamic calendar, alongside Eid al-Adha.
+      </p>
+    </div>
+
+    <div class="card-grid reveal">
+      <div class="card">
+        <div class="card-icon">🌙</div>
+        <h3>Announcement</h3>
+        <p>Eid begins with the sighting of the new crescent moon at the end of Ramadan. Communitiesannounce the start of Eid, which can sometimes vary by a day across countries.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🕌</div>
+        <h3>Eid Prayer</h3>
+        <p>The day begins with a special congregational Eid prayer (Salat al-Eid), held in the morning at mosques or open prayer grounds. Attendance is strongly encouraged for all Muslims.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💛</div>
+        <h3>Zakat al-Fitr</h3>
+        <p>Zakat on Eid day is once again highly encouraged</p>
+      </div>
+    </div>
+
+    <div class="section-header reveal" style="padding-top:2rem;">
+      <p class="section-tag">The Celebration</p>
+      <h2 class="section-title" style="font-size:clamp(1.5rem,3.5vw,2.4rem);">How Eid is Observed</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="two-col reveal">
+      <div class="panel">
+        <h3>Personal &amp; Spiritual Preparations</h3>
+        <ul>
+          <li>Perform a full ritual bath (Ghusl) before the Eid prayer</li>
+          <li>Wear new or finest clothes as a sign of gratitude</li>
+          <li>Eat something sweet, traditionally dates, before the prayer</li>
+          <li>Pay Zakat al-Fitr on behalf of the entire family</li>
+          <li>Recite Takbeer: "Allahu Akbar, Allahu Akbar, La ilaha illallah…"</li>
+          <li>Walk to the prayer ground if possible, returning by a different route</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Community &amp; Family</h3>
+        <ul>
+          <li>Exchange greetings: "Eid Mubarak!" or "Eid Sa'eed!"</li>
+          <li>Visit family, friends, neighbors, and the elderly</li>
+          <li>Share festive meals and traditional sweets</li>
+          <li>Give gifts and money (Eidi) to children</li>
+          <li>Visit graves of deceased relatives and pray for them</li>
+          <li>Embrace reconciliation — mend broken relationships</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ TRADITIONS ══════════════════ -->
+  <section id="traditions">
+    <div class="section-header reveal">
+      <p class="section-tag">Around the World</p>
+      <h2 class="section-title">Cultural Traditions</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="mosaic reveal">
+      <div class="mosaic-item">
+        <div class="mosaic-emoji">🍽️</div>
+        <h4>Food &amp; Feasting</h4>
+        <p>Every culture brings its own culinary tradition to Eid. From kunafa (Middle East) to sheer khurma (South Asia), biryani (Pakistan/India), ma'amoul shortbread (Levant), and baklava (Turkey), food is a centerpiece of Ramadan.</p>
+      </div>
+      <div class="mosaic-item">
+        <div class="mosaic-emoji">🪔</div>
+        <h4>Lights &amp; Decoration</h4>
+        <p>Streets and homes are adorned with lights, lanterns (fanous), and bunting across many Muslim-majority countries.</p>
+      </div>
+      <div class="mosaic-item">
+        <div class="mosaic-emoji">👗</div>
+        <h4>New Clothes</h4>
+        <p>Wearing new garments on Eid is a tradition symbolizing renewal, gratitude, and the spiritual freshness achieved through Ramadan.</p>
+      </div>
+      <div class="mosaic-item">
+        <div class="mosaic-emoji">🤲</div>
+        <h4>Acts of Charity</h4>
+        <p>Eid and Ramadan sees an outpouring of voluntary generosity, feeding the poor, giving gifts, and supporting community organizations.</p>
+      </div>
+      <div class="mosaic-item">
+        <div class="mosaic-emoji">🎉</div>
+        <h4>Community Gatherings</h4>
+        <p>Parks, fairgrounds, and community halls host Eid festivals with entertainment, games for children, and markets.</p>
+      </div>
+    </div>
+
+    <div class="highlight-band reveal">
+      <h3>Three Days of Joy</h3>
+      <p>
+        Eid al-Fitr is traditionally celebrated for three days, though modern life has condensed this
+        in many places to one or two. In many Muslim-majority countries, it is a public holiday.
+        These days are days of enjoyment, so much so that fasting is forbidden. These are meant to be happy days.
+      </p>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <div class="closing reveal">
+    <div class="closing-arabic">عيد مبارك</div>
+    <h2>Eid Mubarak — Blessed Celebration</h2>
+    <p>May the blessings of Ramadan carry forward, and the joy of Eid be shared by all.</p>
+  </div>
+
+</main>
+
+<footer>
+  A cultural and religious overview of Ramadan &amp; Eid al-Fitr &nbsp;·&nbsp; Prepared for educational purposes
+</footer>
+
+<script>
+  // Generate stars
+  const container = document.getElementById('stars');
+  for (let i = 0; i < 55; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2.5 + 1;
+    const delay = Math.random() * 5;
+    const duration = Math.random() * 3 + 2.5;
+    const opacity = Math.random() * 0.6 + 0.2;
+    s.style.cssText = `
+      width:${size}px; height:${size}px;
+      top:${Math.random()*100}%;
+      left:${Math.random()*100}%;
+      --d:${duration}s;
+      --op:${opacity};
+      animation-delay:${delay}s;
+    `;
+    container.appendChild(s);
+  }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
